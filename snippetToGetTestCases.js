@@ -1,16 +1,16 @@
 function getTestCases() {
-  const arr = document.querySelectorAll(".elfjS > pre");
-  let values = "";
-  const functionName = document.querySelector(".mtk11").innerHTML;
-  arr.forEach((el) => (values += el.innerHTML));
+  const arr = document.querySelectorAll(".elfjS pre");
+  const functionName = document.querySelector(".mtk11").textContent.trim();
+
   let res = "";
-  values
-    .replace(/<strong>.*?<\/strong>/g, "")
-    .split("\n")
-    .filter((el, idx) => idx % 2 == 0 && el !== "")
-    .forEach(
-      (el) => (res += "print(Solution()." + functionName + "(" + el + "))\n")
-    );
+  arr.forEach((el) => {
+    const inputMatch = el.textContent.trim().match(/Input:\s*(.*)/);
+
+    if (inputMatch) {
+      let input = inputMatch[1].trim();
+      res += `print(Solution().${functionName}(${input}))\n`;
+    }
+  });
   // navigator.clipboard.writeText(res);
   // console.log("Copied to clipboard");
   return res;
