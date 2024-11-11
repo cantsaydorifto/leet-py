@@ -1,0 +1,27 @@
+AT LEAST K:
+    use the k frequency one where we add l to res because l is the window size
+    def numberOfSubstrings(self, s: str, k: int) -> int:
+        res, l, d = 0, 0, {}
+        for i in s:
+            d[i] = d.get(i, 0) + 1
+            while d[i] == k:
+                d[s[l]] -= 1
+                l += 1
+            res += l
+        return res
+
+AT MOST K or less than equal:
+    def lessThanEqualGoal(self, goal: int):
+        res, l, sum = 0, 0, 0
+        if goal < 0:
+            return 0
+        for i in range(len(self.nums)):
+            sum += self.nums[i]
+            while sum > goal:
+                sum -= self.nums[l]
+                l += 1
+            res += i - l + 1
+        return res
+
+equal to k:
+    atmost(k) - atmost(k - 1)
